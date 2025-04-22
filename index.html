@@ -1,15 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Felmeddelande</title>
-  </head>
-  <body style="text-align: center; font-family: sans-serif; background-color: #fff0f0;">
-    <h1 style="color: red;">🚫 Du är ej registrerad!</h1>
-    <img src="https://i.imgur.com/JPnqRMu.png" width="150" alt="Rött kryss">
-    <audio autoplay>
-      <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
-      Din webbläsare stöder inte ljuduppspelning.
-    </audio>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <title>Felmeddelande</title>
+</head>
+<body style="text-align: center; font-family: sans-serif; background-color: #fff0f0;">
+  <h1 style="color: red;">🚫 Du är ej registrerad!</h1>
+  <img src="https://i.imgur.com/JPnqRMu.png" width="150" alt="Rött kryss">
+  
+  <!-- Ljudfil som spelas automatiskt -->
+  <audio id="errorSound" autoplay>
+    <source src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" type="audio/ogg">
+    Din webbläsare stöder inte ljuduppspelning.
+  </audio>
+
+  <script>
+    // Säkerställer att ljudet försöker spelas om autoplay blockeras
+    window.addEventListener('DOMContentLoaded', function () {
+      const sound = document.getElementById('errorSound');
+      const playPromise = sound.play();
+
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          // Ljudet spelades
+        }).catch((error) => {
+          console.log("Autoplay-block – kräver användarinteraktion");
+        });
+      }
+    });
+  </script>
+</body>
 </html>
